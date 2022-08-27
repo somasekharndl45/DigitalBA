@@ -1,0 +1,54 @@
+<div >
+    <div *ngIf="!isBuyClicked">
+        <div style="text-align: center">
+            <h3>Search Books</h3>         
+        </div>
+        <div class="card-body ">
+            <div class="row">Filter Results</div> <br>
+            <div class="row">
+                <label for="Category">Category</label>
+                <input type="text" [(ngModel)] = "filterBook.category" ngDefaultControl >
+                <label for="Author">Author</label>
+                <input type="text" [(ngModel)] = "filterBook.authorName" ngDefaultControl>
+                <label for="Price">Price</label>
+                <input type="number" [(ngModel)] = "filterBook.price" ngDefaultControl>
+            </div>
+            <div class="row">
+                <button class="btn btn-primary" (click)='getBooksByFilter()'>search</button>
+            </div>
+        </div>
+        <div class = "table-responsive">
+            <table class = "table" *ngIf = 'books.length > 0'>
+                <thead class="table-dark">
+                    <tr>
+                        <th>Logo</th>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Publisher</th>
+                        <th>Price</th>
+                        <th>Published Date</th>
+                        <th>Category</th>
+                        <th>Buy</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor = "let book of books">
+                        <td> <img src="../assets/Images/firstimage.jpg" style="width: 65px;"/> {{book.logo}}</td>
+                        <td style="padding-top: 20px;">{{book.title}}</td>
+                        <td style="padding-top: 20px;">{{book.authorName}}</td>
+                        <td style="padding-top: 20px;">{{book.publisher}}</td>
+                        <td style="padding-top: 20px;">{{book.price}}</td>
+                        <td style="padding-top: 20px;">{{book.publishedDate}}</td>
+                        <td style="padding-top: 20px;">{{book.category}}</td>
+                        <td>
+                            <button class="btn btn-primary" (click)="buyClick()" [(ngModel)]="book.bookId" ngDefaultControl>Buy</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>   
+</div>
+</div>
+<div *ngIf="isBuyClicked">
+    <app-payment></app-payment>
+</div> 

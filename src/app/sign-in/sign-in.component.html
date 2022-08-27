@@ -1,0 +1,45 @@
+<div class="container">
+  <div class="cards-container" >
+    <div class="cards-form">
+    <div *ngIf="!isLoggedIn"><h1>Login</h1>
+      <form  name="form" (ngSubmit)="f.form.valid " #f="ngForm" validate>
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text"  name="username" [(ngModel)]="cred.userName" required
+              #username="ngModel" />
+          <div class="alert alert-danger" role="alert" *ngIf="f.submitted && username.invalid" >
+            Username is required!
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password"  name="password"
+              [(ngModel)]="cred.password" required minlength="5" #password="ngModel" />
+          <div class="alert alert-danger" role="alert" *ngIf="f.submitted && password.invalid" >
+            <div *ngIf="password.errors?.['required']">Password is required</div>
+            <div *ngIf="password.errors?.['minlength']">
+              Minimum 5 characters required
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <button class="btn btn-primary " (click)='onSubmit()'>
+            Login
+          </button>
+        </div>
+        <div class="form-group">
+          <div class="alert alert-danger" role="alert" *ngIf="f.submitted && isLoginFailed" >
+            Login failed: {{ errorMessage }}
+          </div>
+        </div>
+      </form>
+      </div>
+    </div> 
+  </div>
+  <div *ngIf="isLoggedIn && isAuthor" >
+    <app-author></app-author>
+  </div>
+  <div *ngIf="isLoggedIn && isReader" >
+    <app-home></app-home>
+  </div>
+</div> 

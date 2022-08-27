@@ -1,0 +1,180 @@
+<div class="col-md-12" *ngIf="!isListBooks" >
+    <div >
+        <h3>Book List</h3>
+    </div>
+    <div class = "table-responsive">
+      <table class = "table" *ngIf = 'books.length > 0' style="border:1px solid black">
+          <thead class="table-dark">
+              <tr>
+                  <th>Logo</th>
+                  <th>Title</th>
+                  <th>Category</th>
+                  <th>Author</th>
+                  <th>Price</th>
+                  <th>Publisher</th>
+                  <th>Published Date</th>
+                  <th>Active</th>
+                  <th>Edit</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor = "let book of books">
+                  <td>{{book.logo}}</td>
+                  <td>{{book.title}}</td>
+                  <td>{{book.category}}</td>
+                  <td>{{book.authorName}}</td>
+                  <td>{{book.price}}</td>
+                  <td>{{book.publisher}}</td>
+                  <td>{{book.publishedDate}}</td>
+                  <td>{{book.active}}</td>
+                  <td class="card-row-action">
+                    <a (click)="editBook(book)"><i class="fa-solid fa-edit"></i>
+                      <!-- {{this.setBookAttributes(book)}} -->
+                    </a>
+                  </td>
+              </tr>
+          </tbody>
+      </table>
+  </div> 
+  <div>
+    <button class="btn btn-primary" (click)="createBookClick()">Create Book</button>
+  </div>
+</div>
+
+<div class="card card-container mycontainer" *ngIf="isCreateBookClicked" >
+  <div><h1 style="text-align:center;">Create Book</h1></div>
+  <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+    <div class="form-group">
+      <label for="logo">Logo</label>
+      <input type="text" class="form-control" name="logo" [(ngModel)]="book.logo"
+        placeholder="provide image url" #username="ngModel" />          
+    </div>
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input type="text"  class="form-control" name="title" [(ngModel)]="book.title" required
+        #title="ngModel"  />   
+      <div class="alert-danger" *ngIf="f.submitted && title.invalid">
+        <div *ngIf="title.errors?.['required']">Title is required</div>
+      </div>       
+    </div>
+    <div class="form-group">
+        <label for="category">Category</label>
+        <input type="text" class="form-control"  name="category"
+          [(ngModel)]="book.category" required #category="ngModel" />   
+        <div class="alert-danger" *ngIf="f.submitted && category.invalid">
+          <div *ngIf="category.errors?.['required']">Category is required</div>
+        </div>       
+    </div>
+    <div class="form-group">
+        <label for="price">Price</label>
+        <input type="text" class="form-control" name="price"
+          [(ngModel)]="book.price" required #price="ngModel" />   
+        <div class="alert-danger" *ngIf="f.submitted && price.invalid">
+          <div *ngIf="price.errors?.['required']">Price is required</div>
+        </div>       
+    </div>
+    <div class="form-group">
+        <label for="publisher">Publisher</label>
+        <input  type="text" class="form-control" name="publisher"
+          [(ngModel)]="book.publisher" required #publisher="ngModel" />   
+        <div class="alert-danger" *ngIf="f.submitted && publisher.invalid">
+          <div *ngIf="publisher.errors?.['required']">Publisher is required</div>
+        </div>       
+    </div>
+    <div class="form-group">
+      <label for="content">Content</label>
+      <input
+        type="text" class="form-control" name="content"
+        [(ngModel)]="book.content" required #content="ngModel" />
+      <div class="alert-danger" *ngIf="f.submitted && content.invalid">
+        <div *ngIf="content.errors?.['required']">content is required</div>
+      </div>
+    </div>
+    <div class="form-group">
+        <label for="active">Active</label>
+        <input type="text" class="form-control" name="active"
+          [(ngModel)]="book.active" required #active="ngModel" />
+        <div class="alert-danger" *ngIf="f.submitted && active.invalid">
+          <div *ngIf="active.errors?.['required']">Active is required</div>
+        </div>
+      </div>
+    <div class="form-group">
+      <button class="btn btn-primary btn-block" (click)="onSubmit()">Create</button>
+    </div>
+    <div class="alert alert-warning" *ngIf="f.submitted && isCreateBookFailed">
+      Book Creation failed!<br />{{ errorMessage }}
+    </div>
+  </form>
+  <div class="alert alert-success" *ngIf="isSuccessful">
+    Book is created successfully!
+  </div>
+</div>
+
+<div class="card card-container mycontainer" *ngIf="isEditBookClicked" >
+  <div><h1 style="text-align:center;">Edit Book</h1></div>
+  <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+    <div class="form-group">
+      <label for="bookId">Book ID</label>
+      <input type="text" class="form-control" name="bookid" [(ngModel)]="this.book.bookId" 
+         #bookid="ngModel" disabled />          
+    </div>
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input type="text"  class="form-control" name="title" [(ngModel)]="this.book.title" required
+        #title="ngModel"  />   
+      <div class="alert-danger" *ngIf="f.submitted && title.invalid">
+        <div *ngIf="title.errors?.['required']">Title is required</div>
+      </div>       
+    </div>
+    <div class="form-group">
+        <label for="category">Category</label>
+        <input type="text" class="form-control"  name="category"
+          [(ngModel)]="this.book.category" required #category="ngModel" />   
+        <div class="alert-danger" *ngIf="f.submitted && category.invalid">
+          <div *ngIf="category.errors?.['required']">Category is required</div>
+        </div>       
+    </div>
+    <div class="form-group">
+        <label for="price">Price</label>
+        <input type="text" class="form-control" name="price"
+          [(ngModel)]="this.book.price" required #price="ngModel" />   
+        <div class="alert-danger" *ngIf="f.submitted && price.invalid">
+          <div *ngIf="price.errors?.['required']">Price is required</div>
+        </div>       
+    </div>
+    <div class="form-group">
+        <label for="publisher">Publisher</label>
+        <input  type="text" class="form-control" name="publisher"
+          [(ngModel)]="this.book.publisher" required #publisher="ngModel" />   
+        <div class="alert-danger" *ngIf="f.submitted && publisher.invalid">
+          <div *ngIf="publisher.errors?.['required']">Publisher is required</div>
+        </div>       
+    </div>
+    <div class="form-group">
+      <label for="content">Content</label>
+      <input
+        type="text" class="form-control" name="content"
+        [(ngModel)]="this.book.content" required #content="ngModel" />
+      <div class="alert-danger" *ngIf="f.submitted && content.invalid">
+        <div *ngIf="content.errors?.['required']">content is required</div>
+      </div>
+    </div>
+    <div class="form-group">
+        <label for="active">Active</label>
+        <input type="text" class="form-control" name="active"
+          [(ngModel)]="this.book.active" required #active="ngModel" />
+        <div class="alert-danger" *ngIf="f.submitted && active.invalid">
+          <div *ngIf="active.errors?.['required']">Active is required</div>
+        </div>
+      </div>
+    <div class="form-group">
+      <button class="btn btn-primary" (click)="onEditBook()">Edit</button>
+    </div>
+    <div class="alert alert-warning" *ngIf="f.submitted && isCreateBookFailed">
+      Book edit failed!<br />{{ errorMessage }}
+    </div>
+  </form>
+  <div class="alert alert-success" *ngIf="isSuccessful">
+    Book is edited successfully!
+  </div>
+</div>

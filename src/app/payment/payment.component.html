@@ -1,0 +1,91 @@
+
+<div class="col-md-12">
+    <div class="card card-container">
+      <form
+        *ngIf="!isSuccessful"
+        name="form"
+        (ngSubmit)="f.form.valid"
+        #f="ngForm"
+        novalidate
+      >
+        <div class="card-header text-dark">
+        <h1>Buy Book</h1>  
+        </div><br>
+        <div class="form-group">
+          <label for="buyerName">UserName</label>
+          <input
+            type="text"
+            class="form-control"
+            name="buyerName"
+            [(ngModel)]="buy.buyerName"
+            required
+            #buyerName="ngModel"
+          />    
+          <div class="alert-danger" *ngIf="f.submitted && buyerName.invalid">
+            <div *ngIf="buyerName.errors?.['required']">BuyerName is required</div>
+          </div>        
+        </div>
+        <div class="form-group">
+            <label for="emailID">Email</label>
+            <input
+              type="email"
+              class="form-control"
+              name="emailID"
+              [(ngModel)]="buy.emailID"
+              required
+              email
+              #emailID="ngModel"
+            />
+            <div class="alert-danger" *ngIf="f.submitted && emailID.invalid">
+              <div *ngIf="emailID.errors?.['required']">emailID is required</div>
+              <div *ngIf="emailID.errors?.['email']">
+                Email must be a valid email address
+              </div>
+            </div>
+        </div>
+        <div class="form-group">
+          <label for="bookName">Title</label>
+          <input type="text"
+            class="form-control"
+            name="bookName"
+            [(ngModel)]="buy.bookName"
+            required
+            #bookName="ngModel"
+          />   
+          <div class="alert-danger" *ngIf="f.submitted && bookName.invalid">
+            <div *ngIf="bookName.errors?.['required']">BookName is required</div>
+          </div>       
+        </div>
+        <div class="form-group">
+          <button class="btn btn-primary btn-block" (click)="onSubmit()">Buy</button>
+        </div>
+        <div class="alert alert-warning" *ngIf="f.submitted && isBuyBookFailed">
+          Book purchase failed!<br />{{ errorMessage }}
+        </div>
+    </form>
+    </div>
+</div>
+<div class="col-md-12" >
+    <div class="card card-container" *ngIf="isSuccessful">
+        <div >
+            <div class="card-header text-dark">
+                <h1>Invoice</h1>  
+                </div><br>
+                <div class="form-group">
+                    <label for="payment">PaymentID : {{paymentDetails.paymentId}}</label>
+                </div>
+                <div class="form-group">
+                    <label for="payment">BuyerEmailID : {{paymentDetails.buyerEmailId}}</label>
+                </div>
+                <div class="form-group">
+                    <label for="payment">BuyerName : {{paymentDetails.buyerName}}</label>
+                </div>
+                <div class="form-group">
+                    <label for="payment">BookName : {{paymentDetails.bookName}}</label>            
+                </div>
+                <div class="form-group">
+                    <label for="payment">PaymentDate : {{paymentDetails.paymentDate}}</label>
+                </div>
+        </div>
+    </div>
+</div>
