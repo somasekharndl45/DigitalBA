@@ -8,7 +8,8 @@ import { PaymentDetails } from '../models/paymentModel';
   providedIn: 'root'
 })
 export class BuyBookService {
-    baseUrl = 'https://localhost:7285/Payment/PurchaseBook/';
+   
+    baseUrl='https://paymentproject.azurewebsites.net/Payment/PurchaseBook/';
 
     constructor(private http: HttpClient) { }
 

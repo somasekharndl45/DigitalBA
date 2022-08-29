@@ -8,8 +8,8 @@ import { BookModel } from '../models/bookmodel';
   })
 export class AuthorService {
 
-    bookUrl = 'https://localhost:7011/Author/CreateBook/'
-
+  
+   bookUrl =  'https://author20220828134232.azurewebsites.net/Author/CreateBook'
     constructor(private http: HttpClient) { }
 
     createBook(bookModel: BookModel): Observable<BookModel> {

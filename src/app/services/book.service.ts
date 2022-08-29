@@ -11,10 +11,12 @@ import { FilterBook } from '../models/filterBook';
   })
 export class BookService {
 
-    allbookUrl = 'https://localhost:7125/Reader/DisplayBooks/'
-    filterbookUrl = 'https://localhost:7125/Reader/SearchBooks/'
-    authbookUrl = 'https://localhost:7125/Reader/DisplayBooks/'
-    editbookUrl = 'https://localhost:7011/Author/EditBook/'
+    
+
+    allbookUrl = 'https://reader20220828135100.azurewebsites.net/Reader/DisplayBooks/'
+    filterbookUrl = 'https://reader20220828135100.azurewebsites.net/Reader/SearchBooks/'
+    authbookUrl = 'https://reader20220828135100.azurewebsites.net/Reader/DisplayBooks/'
+    editbookUrl = 'https://author20220828134232.azurewebsites.net/Author/EditBook/'
 
     constructor(private http: HttpClient) { }
 

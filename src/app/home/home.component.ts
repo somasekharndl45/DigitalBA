@@ -33,7 +33,6 @@ export class HomeComponent implements OnInit {
     price: 0
   }
 
-  // bookIdSelected =
   isBuyClicked= false;
   isSearchClicked = false;
 
@@ -54,6 +53,7 @@ export class HomeComponent implements OnInit {
 
   getBooksByFilter()
   {
+    console.log("Search")
     this.bookService.getBookByFilter(this.filterBook).subscribe
     (
       response =>  { this.books = response;}

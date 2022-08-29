@@ -34,10 +34,6 @@ export class AuthorComponent implements OnInit {
     active : true
   }
 
-  
-
- 
-
   constructor(private authorService : AuthorService, private bookService: BookService, private tokenStorage: TokenStorageService) { }
 
   ngOnInit(): void {
@@ -91,7 +87,6 @@ export class AuthorComponent implements OnInit {
     this.book.active=(this.book.active == true)
     this.bookService.onEditBook(this.book).subscribe
     (
-
       resposne => this.book=resposne
     );
     this.isListBooks = false

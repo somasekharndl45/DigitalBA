@@ -4,7 +4,8 @@ import { Observable } from 'rxjs';
 import { Credentials } from '../models/credential';
 import { Users } from '../models/user';
 import { TokenModel } from '../models/tokenmodel';
-const AUTH_API = 'https://localhost:7224/Authentication/';
+
+const AUTH_API ='https://authentication20220828135938.azurewebsites.net/Authentication'
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
@@ -14,6 +15,7 @@ const httpOptions = {
 export class AuthService {
  
   signUpUrl = ' https://localhost:7011/Author/CreateAccount'
+  //signUpUrl ='https://author20220828134232.azurewebsites.net/Author/CreateAccount'
 
   constructor(private http: HttpClient) { }
 
